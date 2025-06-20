@@ -4,6 +4,7 @@ import Api.AuthApi;
 import Diplom.WebDriverCreator;
 import PageObject.*;
 import io.restassured.response.Response;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,6 +33,17 @@ public class LoginPageTest {
     public void setUp() {
         webDriver = WebDriverCreator.createWebDriver(browser);
     }
+    @After
+    public void tearDown() {
+        if (accessToken != null) {
+            Response response = AuthApi.deleteUser(accessToken);
+            System.out.println("Удаление пользователя: " + response.getStatusCode());
+        }
+        if (webDriver != null) {
+            webDriver.quit();
+        }
+    }
+
 
     //вход по кнопке «Войти в аккаунт» на главной
     @Test
@@ -228,16 +240,6 @@ public class LoginPageTest {
         PersonalAccountPage page = new PersonalAccountPage(webDriver);
 
         page.waitForElementToBeClickable(By.xpath(".//button[text()='Выход']")).click();
-    }
-
-    public void tearDown() {
-        if (accessToken != null) {
-            Response response = AuthApi.deleteUser(accessToken);
-            System.out.println("Удаление пользователя: " + response.getStatusCode());
-        }
-        if (webDriver != null) {
-            webDriver.quit();
-        }
     }
 
 

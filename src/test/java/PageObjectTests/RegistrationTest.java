@@ -1,5 +1,7 @@
 package PageObjectTests;
 
+import io.restassured.response.Response;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -33,6 +35,13 @@ public class RegistrationTest {
     public void setUp() {
 
         webDriver = WebDriverCreator.createWebDriver(browser);
+    }
+
+    @After
+    public void tearDown() {
+        if (webDriver != null) {
+            webDriver.quit();
+        }
     }
 
     @Test

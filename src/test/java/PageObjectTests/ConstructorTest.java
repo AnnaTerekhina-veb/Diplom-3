@@ -1,7 +1,9 @@
 package PageObjectTests;
 
+
 import Diplom.WebDriverCreator;
 import PageObject.MainPage;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +29,15 @@ public class ConstructorTest {
 
         webDriver = WebDriverCreator.createWebDriver(browser);
     }
-// Переход к разделу «Булки»
+
+    @After
+    public void tearDown() {
+        if (webDriver != null) {
+            webDriver.quit();
+        }
+    }
+
+    // Переход к разделу «Булки»
     @Test
     public void testClickBunsTab() {
 
@@ -63,5 +73,6 @@ public class ConstructorTest {
         mainPage.isFillingsTabActive();
 
     }
+
 
 }
